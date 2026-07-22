@@ -49,6 +49,11 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.firebase.ai)
+
+    // Core Compose support for AsyncImage
+    implementation("io.coil-kt.coil3:coil-compose:3.0.4")
+
+
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)

@@ -29,6 +29,7 @@ fun HomePageScreen() {
 
             // Insert a carousel of pics that AI spun up depending on what we have
             // stored in the database
+            MealIdealsCarousel()
         }
 
     }
