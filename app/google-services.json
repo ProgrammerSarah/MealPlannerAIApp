@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "843738234789",
+    "project_id": "com-example-mealplannera-24a38",
+    "storage_bucket": "com-example-mealplannera-24a38.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843738234789:android:ea10d6f0a2170131d5324c",
+        "android_client_info": {
+          "package_name": "com.example.mealplanneraiapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZ6_7qioI7YlSZxg1ENO8kFiFDz2tNb9I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
