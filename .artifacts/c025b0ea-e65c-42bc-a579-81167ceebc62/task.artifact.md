@@ -1,4 +1,0 @@
-- [x] Center selected card in `HorizontalPager`
-    - [x] Add `SnapPosition` import to `MealIdealsCarousel.kt`
-    - [x] Update `HorizontalPager` with `snapPosition = SnapPosition.Center`
-- [x] Verify changes

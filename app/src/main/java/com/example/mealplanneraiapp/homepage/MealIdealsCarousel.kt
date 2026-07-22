@@ -41,9 +41,14 @@ fun MealIdealsCarousel() {
         .wrapContentSize()
         .padding(16.dp)
     ) {
+        // We use a large number for page count to simulate infinite scrolling
+        val pageCount = Int.MAX_VALUE
+        // Start in the middle so we can scroll both ways
+        val initialPage = pageCount / 2 - (pageCount / 2 % localMealIdeaImages.size)
+        
         val pagerState = rememberPagerState(
-            initialPage = 1,
-            pageCount = { localMealIdeaImages.size },
+            initialPage = initialPage,
+            pageCount = { pageCount },
         )
         val pagerIsDragged by pagerState.interactionSource.collectIsDraggedAsState()
 
@@ -57,7 +62,7 @@ fun MealIdealsCarousel() {
             LaunchedEffect(pagerState, pageInteractionSource) {
                 while (true) {
                     delay(2000)
-                    val nextPage = (pagerState.currentPage + 1) % localMealIdeaImages.size
+                    val nextPage = pagerState.currentPage + 1
                     pagerState.animateScrollToPage(nextPage)
                 }
             }
@@ -69,7 +74,8 @@ fun MealIdealsCarousel() {
                 pageSpacing = 30.dp,
                 contentPadding = PaddingValues(horizontal = 32.dp),
                 snapPosition = SnapPosition.Center,
-            ) { page ->
+            ) { virtualPage ->
+                val page = virtualPage % localMealIdeaImages.size
                 Card(
                     Modifier
                         .size(250.dp)
@@ -85,7 +91,7 @@ fun MealIdealsCarousel() {
                             // scroll position. We use the absolute value which allows us to mirror
                             // any effects for both directions
                             val pageOffset = (
-                                    (pagerState.currentPage - page) + pagerState
+                                    (pagerState.currentPage - virtualPage) + pagerState
                                         .currentPageOffsetFraction
                                     ).absoluteValue
 

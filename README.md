@@ -5,10 +5,11 @@ An AI Meal Planner App by Sarah Pham
 - Make splash screen
 - Get familiar with the new Gemini integrations
 - Work on home page "What would you like to make today?"
-  - 
     - Designs (pantry and fridge)
     - Pantry / Fridge Page and database
     - Setting up AI to 
+- Integrate Room Database and ViewModels
+- Integrate Hilt
 - Integrate navhost and navcontroller 
 
 
