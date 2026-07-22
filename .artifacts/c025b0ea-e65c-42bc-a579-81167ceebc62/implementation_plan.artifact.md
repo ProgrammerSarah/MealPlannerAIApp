@@ -1,45 +1,23 @@
-# Implementation Plan - Modernizing the App Look with Material 3
+# Implementation Plan - Infinite Carousel Loop
 
-Your app is already using Material 3, but it's currently using the default "Purple" template. To make it "pretty" and professional, we can leverage more advanced Material 3 features and design principles tailored for a food/baking app.
+To achieve a "truly infinite" scroll behavior where the user can keep swiping in either direction without jumping back to the start, we will implement the "Virtual Infinite Pager" pattern.
 
-## User Review Required
-
-> [!IMPORTANT]
-> **Design Theme**: I propose moving away from the default purple to a warmer, "food-friendly" color palette (e.g., oranges, greens, or creamy tones). Does this sound good to you?
->
-> **Layout Style**: I suggest using `ElevatedCard` for images and a `TopAppBar` for better structure.
+Jetpack Compose `HorizontalPager` doesn't have a native `loop` parameter, so the standard approach is to use a very large number of pages and map them back to your actual list using the modulo operator.
 
 ## Proposed Changes
 
-### 1. Theme and Branding
+### [Meal Planner App]
 
-#### [MODIFY] [Color.kt](file:///Users/sarahpham/Development/MealPlannerAIApp/app/src/main/java/com/example/mealplanneraiapp/ui/theme/Color.kt)
-- Define a new color palette that fits a baking/food app theme.
-- For example: Warm Orange for primary, Sage Green for secondary.
-
-#### [MODIFY] [Theme.kt](file:///Users/sarahpham/Development/MealPlannerAIApp/app/src/main/java/com/example/mealplanneraiapp/ui/theme/Theme.kt)
-- Update `LightColorScheme` and `DarkColorScheme` with the new colors.
-- Ensure Dynamic Color remains enabled for a personalized feel on Android 12+.
-
-### 2. UI Structure and Components
-
-#### [MODIFY] [BakingScreen.kt](file:///Users/sarahpham/Development/MealPlannerAIApp/app/src/main/java/com/example/mealplanneraiapp/BakingScreen.kt)
-- **TopAppBar**: Add a `CenterAlignedTopAppBar` with the "Baking with Gemini" title.
-- **Image Cards**: Wrap the baked goods images in `OutlinedCard` or `ElevatedCard` with rounded corners.
-- **Input Area**: Improve the spacing and styling of the `TextField` and `Button`.
-- **Content Area**: Use `MaterialTheme.typography` more effectively for results.
-
-### 3. Polish and Modernity
-
-#### [MODIFY] [MainActivity.kt](file:///Users/sarahpham/Development/MealPlannerAIApp/app/src/main/java/com/example/mealplanneraiapp/MainActivity.kt)
-- **Edge-to-Edge**: Enable edge-to-edge display using `enableEdgeToEdge()` for a more immersive feel.
-- **System Bars**: Configure system bar colors to match the theme.
+#### [MODIFY] [MealIdealsCarousel.kt](file:///Users/sarahpham/Development/MealPlannerAIApp/app/src/main/java/com/example/mealplanneraiapp/homepage/MealIdealsCarousel.kt)
+- **Increase Page Count**: Set the `pageCount` to a very large number (e.g., `Int.MAX_VALUE`).
+- **Set Initial Page**: Initialize the `pagerState` at a middle point that is an exact multiple of your image list size. This allows the user to scroll both left and right "infinitely" from the start.
+- **Index Mapping**: Inside the pager's content block, map the `page` index to the actual image index using `page % localMealIdeaImages.size`.
+- **Auto-Advance Logic**: Simplify the auto-advance logic to simply increment the current page index without manually resetting it to 0.
 
 ## Verification Plan
 
 ### Manual Verification
-- Deploy to an emulator/device to verify:
-    - The new color scheme looks appealing.
-    - The `TopAppBar` and `Cards` provide better visual hierarchy.
-    - The app respects system insets (Edge-to-Edge).
-    - Light and Dark modes both look great.
+- Deploy the app and verify:
+    - The carousel auto-advances smoothly from the "last" image back to the "first" without a reverse-scrolling animation.
+    - Swiping manually to the left or right can continue for a very long time without hitting a boundary.
+    - Clicking on a card still works correctly (the index mapping is accurate).
